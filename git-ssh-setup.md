@@ -1,6 +1,6 @@
 # Git SSH Setup
 
-This guide configures Git SSH access on a fresh Linux VM and verifies access to Bitbucket.
+This guide configures Git SSH access and Git identity on a fresh Linux VM.
 
 ## 1. Generate an SSH key
 
@@ -37,7 +37,29 @@ Copy the entire output and add it to:
 
 **Bitbucket → Personal settings → SSH keys → Add key**
 
-## 3. Test Bitbucket SSH access
+## 3. Configure Git username and email
+
+Set your Git identity globally:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+```
+
+Verify:
+
+```bash
+git config --global --list
+```
+
+You should see:
+
+```text
+user.name=Your Name
+user.email=your@email.com
+```
+
+## 4. Test Bitbucket SSH access
 
 Run:
 
