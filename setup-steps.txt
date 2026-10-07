@@ -23,3 +23,6 @@ rsync -avz ~/.gemini/config/mcp_config.json \
 # Copy settings
 rsync -avz ~/.gemini/antigravity-cli/settings.json \
   user@vm-host:~/.gemini/antigravity-cli/
+
+# Setup Atlassian MCP
+# Refer to atlassian-mcp-setup.md
