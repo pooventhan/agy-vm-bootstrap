@@ -40,7 +40,6 @@
       "mcp(notion/notion-fetch)",
       "mcp(Google-MCP-Server/list_buckets)",
       "mcp(notion/notion-search)",
-      "read_url(dev.teleport.asia)",
       "mcp(gitkraken/git_checkout)",
       "mcp(Google-MCP-Server/list_time_series)",
       "mcp(gitkraken/git_fetch)",
