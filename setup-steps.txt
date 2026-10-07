@@ -24,5 +24,10 @@ rsync -avz ~/.gemini/config/mcp_config.json \
 rsync -avz ~/.gemini/antigravity-cli/settings.json \
   user@vm-host:~/.gemini/antigravity-cli/
 
+# Copy skills
+ssh user@vm-host 'mkdir -p ~/bitbucket/.agents/skills/'
+rsync -avz ~/.gemini/config/skills \
+  user@vm-host:~/bitbucket/.agents/
+
 # Setup Atlassian MCP
 # Refer to atlassian-mcp-setup.md
