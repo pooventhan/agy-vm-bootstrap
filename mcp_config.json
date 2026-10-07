@@ -1,28 +1,27 @@
 {
   "mcpServers": {
-    "Google-MCP-Server": {
-      "args": ["-y", "@google-cloud/observability-mcp"],
+    "Google-MCP-Server"   : {
+      "args"   : ["-y", "@google-cloud/observability-mcp"],
       "command": "npx"
     },
     "atlassian-mcp-server": {
-      "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/sse"],
+      "command": "npx",
+      "args"   : ["-y", "mcp-remote", "https://mcp.atlassian.com/v2/mcp"]
+    },
+    "chrome-devtools-mcp" : {
+      "args"   : ["-y", "chrome-devtools-mcp@latest"],
       "command": "npx"
     },
-    "gitkraken": {
-      "args": ["mcp"],
-      "command": "gk"
-    },
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.notion.com/mcp"]
-    },
-    "chrome-devtools-mcp": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    },
+    "gitkraken"           : { "args": ["mcp"], "command": "gk" },
     "google-cloud-logging": {
-      "serverUrl": "https://logging.googleapis.com/mcp",
-      "authProviderType": "google_credentials"
+      "authProviderType": "google_credentials",
+      "disabled"        : true,
+      "serverUrl"       : "https://logging.googleapis.com/mcp"
+    },
+    "notion"              : {
+      "args"    : ["-y", "mcp-remote", "https://mcp.notion.com/mcp"],
+      "command" : "npx",
+      "disabled": true
     }
   }
 }
