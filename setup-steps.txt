@@ -16,6 +16,9 @@ curl -fsSL https://antigravity.google/cli/install.sh | bash
 # Create target dirs on the VM
 ssh user@vm-host 'mkdir -p ~/.gemini/config ~/.gemini/antigravity-cli'
 
+# Enable mouse support for tmux
+tmux set -g mouse on
+
 # Copy MCP config
 rsync -avz ~/.gemini/config/mcp_config.json \
   user@vm-host:~/.gemini/config/
