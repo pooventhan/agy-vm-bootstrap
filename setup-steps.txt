@@ -10,14 +10,20 @@ sudo apt install ./gk_3.1.76_linux_amd64.deb
 gk --version
 gk auth login
 
+# Install Google Cloud CLI
+# Follow the guide here: https://docs.cloud.google.com/sdk/docs/install-sdk?hl=en#linux
+
+# Setup service account
+sa_key_file="/path_to_json_file/file.json" && export GOOGLE_APPLICATION_CREDENTIALS="${sa_key_file}" && gcloud auth activate-service-account --key-file="${sa_key_file}"
+
 # Install AGY CLI and follow the setup guide:
 curl -fsSL https://antigravity.google/cli/install.sh | bash
 
 # Create target dirs on the VM
 ssh user@vm-host 'mkdir -p ~/.gemini/config ~/.gemini/antigravity-cli'
 
-# Enable mouse support for tmux
-tmux set -g mouse on
+# Enable mouse support for tmux (permanent)
+echo 'set -g mouse on' >> ~/.tmux.conf
 
 # Copy MCP config
 rsync -avz ~/.gemini/config/mcp_config.json \
