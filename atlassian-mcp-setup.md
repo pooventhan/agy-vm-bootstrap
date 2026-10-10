@@ -1,8 +1,8 @@
-# Atlassian MCP Setup on Headless Linux VM
+# Atlassian Rovo MCP Setup
 
-### 1. Configure Atlassian MCP
+### 1. Configure AGY
 
-Add this to the AGY MCP configuration:
+Edit `~/.gemini/config/mcp_config.json` and add under `mcpServers`:
 
 ```json
 "atlassian-mcp-server": {
@@ -10,64 +10,39 @@ Add this to the AGY MCP configuration:
   "args": [
     "-y",
     "mcp-remote",
-    "https://mcp.atlassian.com/v2/mcp",
-    "3335"
+    "https://mcp.atlassian.com/v2/mcp"
   ]
 }
 ```
 
-The `3335` port is used for the OAuth callback.
-
-### 2. Start AGY
-
-Initially, Atlassian MCP may show:
-
-```text
-Unauthorized [Auth Needed]
-```
-
-This means OAuth authentication has not been completed yet.
-
-### 3. Stop any existing `mcp-remote` process
-
-If authentication gets stuck or says another instance is running:
+### 2. Start OAuth on the VM
 
 ```bash
-pkill -f mcp-remote
+npx -y mcp-remote https://mcp.atlassian.com/v2/mcp
 ```
 
-### 4. Start `mcp-remote` manually
+Copy the authorization URL printed in the terminal and open it on your Mac.
 
-Run:
+### 3. Forward the OAuth callback
+
+Check the callback port in the URL printed by `mcp-remote`. For example, if it uses port `3334`, run this on your Mac:
 
 ```bash
-npx -y mcp-remote https://mcp.atlassian.com/v2/mcp 3335 --debug
+ssh -N -L 3334:127.0.0.1:3334 VM_HOST
 ```
 
-It will display an Atlassian OAuth URL.
+Replace `VM_HOST` with your VM's SSH hostname or alias. Keep the SSH tunnel and `mcp-remote` process running.
 
-### 5. Authenticate from your local computer
+### 4. Complete authentication
 
-Copy the OAuth URL from the VM and open it in your normal browser.
+Return to the authorization URL in your Mac browser, sign in to Atlassian, and complete the OAuth flow.
 
-Complete the Atlassian login and authorization.
+### 5. Verify
 
-### 6. Verify authentication
-
-Once authentication succeeds, `mcp-remote` saves the OAuth credentials on the VM:
+Restart AGY CLI and run:
 
 ```text
-~/.mcp-auth/
+/mcp
 ```
 
-### 7. Start AGY normally
-
-After authentication, start AGY normally.
-
-Atlassian MCP should now connect without requiring the browser again.
-
-### Migration to a new VM
-
-When rebuilding the VM, repeat the authentication process.
-
-Do **not** copy `~/.mcp-auth/` into Git or commit it to the setup repository because it contains authentication credentials.
+Confirm `atlassian-mcp-server` is ready, then test Jira and Confluence access.
